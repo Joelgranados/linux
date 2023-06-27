@@ -105,8 +105,7 @@ static struct ctl_table fsverity_sysctl_table[] = {
 		.proc_handler   = proc_dointvec_minmax,
 		.extra1         = SYSCTL_ZERO,
 		.extra2         = SYSCTL_ONE,
-	},
-	{ }
+	}
 };
 
 static int __init fsverity_sysctl_init(void)
