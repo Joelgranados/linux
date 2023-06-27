@@ -54,9 +54,9 @@ static struct ctl_table key_sysctls[] = {
 		.proc_handler = proc_dointvec_minmax,
 		.extra1 = (void *) SYSCTL_ZERO,
 		.extra2 = (void *) SYSCTL_INT_MAX,
-	},
+	}
 #ifdef CONFIG_PERSISTENT_KEYRINGS
-	{
+	, {
 		.procname = "persistent_keyring_expiry",
 		.data = &persistent_keyring_expiry,
 		.maxlen = sizeof(unsigned),
@@ -64,9 +64,8 @@ static struct ctl_table key_sysctls[] = {
 		.proc_handler = proc_dointvec_minmax,
 		.extra1 = (void *) SYSCTL_ZERO,
 		.extra2 = (void *) SYSCTL_INT_MAX,
-	},
+	}
 #endif
-	{ }
 };
 
 static int __init init_security_keys_sysctls(void)
