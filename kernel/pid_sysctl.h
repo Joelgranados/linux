@@ -40,8 +40,7 @@ static struct ctl_table pid_ns_ctl_table_vm[] = {
 		.proc_handler	= pid_mfd_noexec_dointvec_minmax,
 		.extra1		= SYSCTL_ZERO,
 		.extra2		= SYSCTL_TWO,
-	},
-	{ }
+	}
 };
 static inline void register_pid_ns_sysctl_table_vm(void)
 {

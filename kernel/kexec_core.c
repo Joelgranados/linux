@@ -1004,8 +1004,7 @@ static struct ctl_table kexec_core_sysctls[] = {
 		.data		= &load_limit_reboot,
 		.mode		= 0644,
 		.proc_handler	= kexec_limit_handler,
-	},
-	{ }
+	}
 };
 
 static int __init kexec_core_sysctl_init(void)
