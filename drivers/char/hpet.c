@@ -722,13 +722,12 @@ static int hpet_is_known(struct hpet_data *hdp)
 
 static struct ctl_table hpet_table[] = {
 	{
-	 .procname = "max-user-freq",
-	 .data = &hpet_max_freq,
-	 .maxlen = sizeof(int),
-	 .mode = 0644,
-	 .proc_handler = proc_dointvec,
-	 },
-	{}
+		.procname = "max-user-freq",
+		.data = &hpet_max_freq,
+		.maxlen = sizeof(int),
+		.mode = 0644,
+		.proc_handler = proc_dointvec,
+	}
 };
 
 static struct ctl_table_header *sysctl_header;
