@@ -3223,8 +3223,7 @@ static struct ctl_table vm_compaction[] = {
 		.proc_handler	= proc_dointvec_minmax_warn_RT_change,
 		.extra1		= SYSCTL_ZERO,
 		.extra2		= SYSCTL_ONE,
-	},
-	{ }
+	}
 };
 
 static int __init kcompactd_init(void)
