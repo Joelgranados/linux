@@ -62,8 +62,7 @@ static struct ctl_table mq_sysctls[] = {
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= &msg_maxsize_limit_min,
 		.extra2		= &msg_maxsize_limit_max,
-	},
-	{}
+	}
 };
 
 static struct ctl_table_set *set_lookup(struct ctl_table_root *root)
