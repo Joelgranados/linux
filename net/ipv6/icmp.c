@@ -1205,8 +1205,7 @@ static struct ctl_table ipv6_icmp_table_template[] = {
 		.proc_handler	= proc_dou8vec_minmax,
 		.extra1		= SYSCTL_ZERO,
 		.extra2		= SYSCTL_ONE,
-	},
-	{ },
+	}
 };
 
 struct ctl_table * __net_init ipv6_icmp_sysctl_init(struct net *net)

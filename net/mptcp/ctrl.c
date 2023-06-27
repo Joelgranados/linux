@@ -140,8 +140,7 @@ static struct ctl_table mptcp_sysctl_table[] = {
 		.maxlen	= MPTCP_SCHED_NAME_MAX,
 		.mode = 0644,
 		.proc_handler = proc_dostring,
-	},
-	{}
+	}
 };
 
 static int mptcp_pernet_new_table(struct net *net, struct mptcp_pernet *pernet)

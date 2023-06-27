@@ -67,8 +67,7 @@ static struct ctl_table smc_table[] = {
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= &min_rcvbuf,
 		.extra2		= &max_rcvbuf,
-	},
-	{  }
+	}
 };
 
 int __net_init smc_sysctl_net_init(struct net *net)

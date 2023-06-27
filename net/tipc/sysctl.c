@@ -90,8 +90,7 @@ static struct ctl_table tipc_table[] = {
 		.maxlen		= sizeof(sysctl_tipc_bc_retruni),
 		.mode		= 0644,
 		.proc_handler	= proc_doulongvec_minmax,
-	},
-	{}
+	}
 };
 
 int tipc_register_sysctl(void)

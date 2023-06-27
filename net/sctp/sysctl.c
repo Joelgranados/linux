@@ -79,9 +79,7 @@ static struct ctl_table sctp_table[] = {
 		.maxlen		= sizeof(sysctl_sctp_wmem),
 		.mode		= 0644,
 		.proc_handler	= proc_dointvec,
-	},
-
-	{ /* sentinel */ }
+	}
 };
 
 /* The following index defines are used in sctp_sysctl_net_register().
@@ -383,9 +381,7 @@ static struct ctl_table sctp_net_table[] = {
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= SYSCTL_ZERO,
 		.extra2		= &pf_expose_max,
-	},
-
-	{ /* sentinel */ }
+	}
 };
 
 static int proc_sctp_do_hmac_alg(struct ctl_table *ctl, int write,
@@ -604,7 +600,7 @@ int sctp_sysctl_net_register(struct net *net)
 	if (!table)
 		return -ENOMEM;
 
-	for (i = 0; table[i].data; i++)
+	for (i = 0; i < ARRAY_SIZE(sctp_net_table); i++)
 		table[i].data += (char *)(&net->sctp) - (char *)&init_net.sctp;
 
 	table[SCTP_RTO_MIN_IDX].extra2 = &net->sctp.rto_max;
