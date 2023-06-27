@@ -5678,8 +5678,7 @@ static struct ctl_table bpf_syscall_table[] = {
 		.data		= &bpf_stats_enabled_key.key,
 		.mode		= 0644,
 		.proc_handler	= bpf_stats_handler,
-	},
-	{ }
+	}
 };
 
 static int __init bpf_syscall_sysctl_init(void)
