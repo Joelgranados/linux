@@ -652,8 +652,7 @@ static struct ctl_table net_core_table[] = {
 		.mode		= 0644,
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= SYSCTL_ZERO,
-	},
-	{ }
+	}
 };
 
 static struct ctl_table netns_core_table[] = {
@@ -681,8 +680,7 @@ static struct ctl_table netns_core_table[] = {
 		.extra1		= SYSCTL_ZERO,
 		.extra2		= SYSCTL_ONE,
 		.proc_handler	= proc_dou8vec_minmax,
-	},
-	{ }
+	}
 };
 
 static int __init fb_tunnels_only_for_init_net_sysctl_setup(char *str)
@@ -700,7 +698,8 @@ __setup("fb_tunnels=", fb_tunnels_only_for_init_net_sysctl_setup);
 
 static __net_init int sysctl_core_net_init(struct net *net)
 {
-	struct ctl_table *tbl, *tmp;
+	struct ctl_table *tbl;
+	size_t table_size = ARRAY_SIZE(netns_core_table);
 
 	tbl = netns_core_table;
 	if (!net_eq(net, &init_net)) {
@@ -708,8 +707,8 @@ static __net_init int sysctl_core_net_init(struct net *net)
 		if (tbl == NULL)
 			goto err_dup;
 
-		for (tmp = tbl; tmp->procname; tmp++)
-			tmp->data += (char *)net - (char *)&init_net;
+		for (int i = 0; i < table_size; ++i)
+			(tbl + i)->data += (char *)net - (char *)&init_net;
 	}
 
 	net->core.sysctl_hdr = register_net_sysctl_sz(net, "net/core", tbl,

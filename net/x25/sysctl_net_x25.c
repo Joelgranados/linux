@@ -70,8 +70,7 @@ static struct ctl_table x25_table[] = {
 		.maxlen = 	sizeof(int),
 		.mode = 	0644,
 		.proc_handler = proc_dointvec,
-	},
-	{ },
+	}
 };
 
 int __init x25_register_sysctl(void)

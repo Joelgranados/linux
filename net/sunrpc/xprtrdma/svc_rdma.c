@@ -208,8 +208,7 @@ static struct ctl_table svcrdma_parm_table[] = {
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= &zero,
 		.extra2		= &zero,
-	},
-	{ },
+	}
 };
 
 static void svc_rdma_proc_cleanup(void)

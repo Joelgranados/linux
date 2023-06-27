@@ -435,8 +435,7 @@ static struct ctl_table ip6_frags_ns_ctl_table[] = {
 		.maxlen		= sizeof(int),
 		.mode		= 0644,
 		.proc_handler	= proc_dointvec_jiffies,
-	},
-	{ }
+	}
 };
 
 /* secret interval has been deprecated */
@@ -448,8 +447,7 @@ static struct ctl_table ip6_frags_ctl_table[] = {
 		.maxlen		= sizeof(int),
 		.mode		= 0644,
 		.proc_handler	= proc_dointvec_jiffies,
-	},
-	{ }
+	}
 };
 
 static int __net_init ip6_frags_ns_sysctl_register(struct net *net)

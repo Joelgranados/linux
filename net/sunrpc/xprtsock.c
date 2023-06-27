@@ -158,8 +158,7 @@ static struct ctl_table xs_tunables_table[] = {
 		.maxlen		= sizeof(xs_tcp_fin_timeout),
 		.mode		= 0644,
 		.proc_handler	= proc_dointvec_jiffies,
-	},
-	{ },
+	}
 };
 
 /*
