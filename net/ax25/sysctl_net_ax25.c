@@ -139,10 +139,9 @@ static const struct ctl_table ax25_param_table[] = {
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= &min_ds_timeout,
 		.extra2		= &max_ds_timeout
-	},
+	}
 #endif
-
-	{ }	/* that's all, folks! */
+/* that's all, folks! */
 };
 
 int ax25_register_dev_sysctl(ax25_dev *ax25_dev)
@@ -155,7 +154,7 @@ int ax25_register_dev_sysctl(ax25_dev *ax25_dev)
 	if (!table)
 		return -ENOMEM;
 
-	for (k = 0; k < AX25_MAX_VALUES; k++)
+	for (k = 0; k < AX25_MAX_VALUES && k < ARRAY_SIZE(ax25_param_table); k++)
 		table[k].data = &ax25_dev->values[k];
 
 	snprintf(path, sizeof(path), "net/ax25/%s", ax25_dev->dev->name);
