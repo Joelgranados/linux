@@ -2041,9 +2041,8 @@ static struct ctl_table kern_table[] = {
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= SYSCTL_ONE,
 		.extra2		= SYSCTL_INT_MAX,
-	},
+	}
 #endif
-	{ }
 };
 
 static struct ctl_table vm_table[] = {
@@ -2247,9 +2246,8 @@ static struct ctl_table vm_table[] = {
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= (void *)&mmap_rnd_compat_bits_min,
 		.extra2		= (void *)&mmap_rnd_compat_bits_max,
-	},
+	}
 #endif
-	{ }
 };
 
 int __init sysctl_init_bases(void)

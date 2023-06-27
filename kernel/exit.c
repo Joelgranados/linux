@@ -89,8 +89,7 @@ static struct ctl_table kern_exit_table[] = {
 		.maxlen         = sizeof(oops_limit),
 		.mode           = 0644,
 		.proc_handler   = proc_douintvec,
-	},
-	{ }
+	}
 };
 
 static __init int kernel_exit_sysctls_init(void)
