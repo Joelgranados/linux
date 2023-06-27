@@ -43,8 +43,7 @@ static struct ctl_table llc2_timeout_table[] = {
 		.maxlen		= sizeof(sysctl_llc2_rej_timeout),
 		.mode		= 0644,
 		.proc_handler   = proc_dointvec_jiffies,
-	},
-	{ },
+	}
 };
 
 static struct ctl_table_header *llc2_timeout_header;
