@@ -321,8 +321,7 @@ static struct ctl_table epoll_table[] = {
 		.proc_handler	= proc_doulongvec_minmax,
 		.extra1		= &long_zero,
 		.extra2		= &long_max,
-	},
-	{ }
+	}
 };
 
 static void __init epoll_sysctls_init(void)

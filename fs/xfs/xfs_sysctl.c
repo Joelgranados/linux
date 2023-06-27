@@ -204,10 +204,8 @@ static struct ctl_table xfs_table[] = {
 		.proc_handler	= xfs_stats_clear_proc_handler,
 		.extra1		= &xfs_params.stats_clear.min,
 		.extra2		= &xfs_params.stats_clear.max
-	},
+	}
 #endif /* CONFIG_PROC_FS */
-
-	{}
 };
 
 int

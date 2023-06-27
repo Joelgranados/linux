@@ -44,8 +44,7 @@ static struct ctl_table vm_userfaultfd_table[] = {
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= SYSCTL_ZERO,
 		.extra2		= SYSCTL_ONE,
-	},
-	{ }
+	}
 };
 #endif
 
