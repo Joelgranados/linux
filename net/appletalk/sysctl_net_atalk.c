@@ -39,8 +39,7 @@ static struct ctl_table atalk_table[] = {
 		.maxlen		= sizeof(int),
 		.mode		= 0644,
 		.proc_handler	= proc_dointvec_jiffies,
-	},
-	{ },
+	}
 };
 
 static struct ctl_table_header *atalk_table_header;
