@@ -18,8 +18,7 @@ static struct ctl_table cachefiles_sysctls[] = {
 		.maxlen		= sizeof(unsigned int),
 		.mode		= 0644,
 		.proc_handler	= proc_douintvec,
-	},
-	{}
+	}
 };
 
 int __init cachefiles_register_error_injection(void)
