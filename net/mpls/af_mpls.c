@@ -1392,8 +1392,7 @@ static const struct ctl_table mpls_dev_table[] = {
 		.mode		= 0644,
 		.proc_handler	= mpls_conf_proc,
 		.data		= MPLS_PERDEV_SYSCTL_OFFSET(input_enabled),
-	},
-	{ }
+	}
 };
 
 static int mpls_dev_sysctl_register(struct net_device *dev,
@@ -2687,7 +2686,7 @@ static int mpls_net_init(struct net *net)
 	/* Table data contains only offsets relative to the base of
 	 * the mdev at this point, so make them absolute.
 	 */
-	for (i = 0; i < ARRAY_SIZE(mpls_table) - 1; i++)
+	for (i = 0; i < ARRAY_SIZE(mpls_table); i++)
 		table[i].data = (char *)net + (uintptr_t)table[i].data;
 
 	net->mpls.ctl = register_net_sysctl_sz(net, "net/mpls", table,

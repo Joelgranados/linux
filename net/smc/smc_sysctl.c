@@ -61,8 +61,7 @@ static struct ctl_table smc_table[] = {
 		.mode		= 0644,
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= &min_rcvbuf,
-	},
-	{  }
+	}
 };
 
 int __net_init smc_sysctl_net_init(struct net *net)

@@ -139,8 +139,7 @@ static struct ctl_table nr_table[] = {
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= &min_reset,
 		.extra2		= &max_reset
-	},
-	{ }
+	}
 };
 
 int __init nr_register_sysctl(void)
