@@ -13,7 +13,6 @@
 static struct ctl_table_header *fsverity_sysctl_header;
 
 static struct ctl_table fsverity_sysctl_table[] = {
-#ifdef CONFIG_FS_VERITY_BUILTIN_SIGNATURES
 	{
 		.procname       = "require_signatures",
 		.data           = &fsverity_require_signatures,
@@ -22,15 +21,18 @@ static struct ctl_table fsverity_sysctl_table[] = {
 		.proc_handler   = proc_dointvec_minmax,
 		.extra1         = SYSCTL_ZERO,
 		.extra2         = SYSCTL_ONE,
-	},
-#endif
-	{ }
+	}
 };
 
 static void __init fsverity_init_sysctl(void)
 {
+#ifdef CONFIG_FS_VERITY_BUILTIN_SIGNATURES
 	fsverity_sysctl_header = register_sysctl("fs/verity",
 						 fsverity_sysctl_table);
+#else
+	fsverity_sysctl_header = register_sysctl_sz("fs/verity",
+						 fsverity_sysctl_table, 0);
+#endif
 	if (!fsverity_sysctl_header)
 		panic("fsverity sysctl registration failed");
 }

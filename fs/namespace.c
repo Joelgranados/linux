@@ -5007,8 +5007,7 @@ static struct ctl_table fs_namespace_sysctls[] = {
 		.mode		= 0644,
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= SYSCTL_ONE,
-	},
-	{ }
+	}
 };
 
 static int __init init_fs_namespace_sysctls(void)

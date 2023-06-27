@@ -473,8 +473,7 @@ static struct ctl_table nlm_sysctls[] = {
 		.maxlen		= sizeof(int),
 		.mode		= 0644,
 		.proc_handler	= proc_dointvec,
-	},
-	{ }
+	}
 };
 
 #endif	/* CONFIG_SYSCTL */

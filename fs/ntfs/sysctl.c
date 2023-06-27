@@ -27,8 +27,7 @@ static struct ctl_table ntfs_sysctls[] = {
 		.maxlen		= sizeof(debug_msgs),
 		.mode		= 0644,			/* Mode, proc handler. */
 		.proc_handler	= proc_dointvec
-	},
-	{}
+	}
 };
 
 /* Storage for the sysctls header. */

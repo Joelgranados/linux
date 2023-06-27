@@ -122,8 +122,8 @@ void __init fsverity_init_info_cache(void);
 
 /* signature.c */
 
-#ifdef CONFIG_FS_VERITY_BUILTIN_SIGNATURES
 extern int fsverity_require_signatures;
+#ifdef CONFIG_FS_VERITY_BUILTIN_SIGNATURES
 int fsverity_verify_signature(const struct fsverity_info *vi,
 			      const u8 *signature, size_t sig_size);
 

@@ -33,8 +33,7 @@ static struct ctl_table nfs4_cb_sysctls[] = {
 		.maxlen = sizeof(int),
 		.mode = 0644,
 		.proc_handler = proc_dointvec,
-	},
-	{ }
+	}
 };
 
 int nfs4_register_sysctl(void)

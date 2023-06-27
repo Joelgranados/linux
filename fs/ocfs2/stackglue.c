@@ -657,8 +657,7 @@ static struct ctl_table ocfs2_nm_table[] = {
 		.maxlen		= OCFS2_MAX_HB_CTL_PATH,
 		.mode		= 0644,
 		.proc_handler	= proc_dostring,
-	},
-	{ }
+	}
 };
 
 static struct ctl_table_header *ocfs2_table_header;
