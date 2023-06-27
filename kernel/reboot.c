@@ -1271,8 +1271,7 @@ static struct ctl_table kern_reboot_table[] = {
 		.maxlen         = sizeof(int),
 		.mode           = 0644,
 		.proc_handler   = proc_dointvec,
-	},
-	{ }
+	}
 };
 
 static void __init kernel_reboot_sysctls_init(void)
