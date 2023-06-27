@@ -61,8 +61,7 @@ static struct ctl_table loadpin_sysctl_table[] = {
 		.proc_handler   = proc_dointvec_minmax,
 		.extra1         = SYSCTL_ONE,
 		.extra2         = SYSCTL_ONE,
-	},
-	{ }
+	}
 };
 
 static void set_sysctl(bool is_writable)
