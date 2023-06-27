@@ -4783,9 +4783,8 @@ static struct ctl_table signal_debug_table[] = {
 		.maxlen		= sizeof(int),
 		.mode		= 0644,
 		.proc_handler	= proc_dointvec
-	},
+	}
 #endif
-	{ }
 };
 
 static int __init init_signal_sysctls(void)

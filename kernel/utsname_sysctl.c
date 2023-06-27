@@ -119,8 +119,7 @@ static struct ctl_table uts_kern_table[] = {
 		.mode		= 0644,
 		.proc_handler	= proc_do_uts_string,
 		.poll		= &domainname_poll,
-	},
-	{}
+	}
 };
 
 #ifdef CONFIG_PROC_SYSCTL
