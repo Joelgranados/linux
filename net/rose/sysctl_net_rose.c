@@ -111,8 +111,7 @@ static struct ctl_table rose_table[] = {
 		.proc_handler	= proc_dointvec_minmax,
 		.extra1		= &min_window,
 		.extra2		= &max_window
-	},
-	{ }
+	}
 };
 
 void __init rose_register_sysctl(void)

@@ -127,8 +127,7 @@ static struct ctl_table mptcp_sysctl_table[] = {
 		.proc_handler = proc_dou8vec_minmax,
 		.extra1       = SYSCTL_ZERO,
 		.extra2       = &mptcp_pm_type_max
-	},
-	{}
+	}
 };
 
 static int mptcp_pernet_new_table(struct net *net, struct mptcp_pernet *pernet)
