@@ -2444,8 +2444,7 @@ static struct ctl_table seccomp_sysctl_table[] = {
 		.procname	= "actions_logged",
 		.mode		= 0644,
 		.proc_handler	= seccomp_actions_logged_handler,
-	},
-	{ }
+	}
 };
 
 static int __init seccomp_sysctl_init(void)
