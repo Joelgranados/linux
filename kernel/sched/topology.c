@@ -249,8 +249,7 @@ static struct ctl_table sched_energy_aware_sysctls[] = {
 		.proc_handler   = sched_energy_aware_handler,
 		.extra1         = SYSCTL_ZERO,
 		.extra2         = SYSCTL_ONE,
-	},
-	{}
+	}
 };
 
 static int __init sched_energy_aware_sysctl_init(void)

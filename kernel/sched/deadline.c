@@ -42,8 +42,7 @@ static struct ctl_table sched_dl_sysctls[] = {
 		.mode           = 0644,
 		.proc_handler   = proc_douintvec_minmax,
 		.extra2         = (void *)&sysctl_sched_dl_period_max,
-	},
-	{}
+	}
 };
 
 static int __init sched_dl_sysctl_init(void)
