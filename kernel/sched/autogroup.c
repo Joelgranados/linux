@@ -18,8 +18,7 @@ static struct ctl_table sched_autogroup_sysctls[] = {
 		.proc_handler   = proc_dointvec_minmax,
 		.extra1         = SYSCTL_ZERO,
 		.extra2         = SYSCTL_ONE,
-	},
-	{}
+	}
 };
 
 static void __init sched_autogroup_sysctl_init(void)
