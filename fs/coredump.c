@@ -980,8 +980,7 @@ static struct ctl_table coredump_sysctls[] = {
 		.maxlen		= sizeof(unsigned int),
 		.mode		= 0644,
 		.proc_handler	= proc_dointvec,
-	},
-	{ }
+	}
 };
 
 static int __init init_fs_coredump_sysctls(void)
