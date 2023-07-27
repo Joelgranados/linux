@@ -36,14 +36,19 @@ static struct ctl_table sysctl_mount_point[] = {
 
 /**
  * register_sysctl_mount_point() - registers a sysctl mount point
+ * @set: Sysctl tree to register on
  * @path: path for the mount point
  *
  * Used to create a permanently empty directory to serve as mount point.
  * There are some subtle but important permission checks this allows in the
  * case of unprivileged mounts.
+ * When set is null it registers on the default tree
  */
-struct ctl_table_header *register_sysctl_mount_point(const char *path)
+struct ctl_table_header *register_sysctl_mount_point(struct ctl_table_set *set,
+						     const char *path)
 {
+	if (set)
+		return __register_sysctl_table(set, path, sysctl_mount_point, 0);
 	return register_sysctl_sz(path, sysctl_mount_point, 0);
 }
 EXPORT_SYMBOL(register_sysctl_mount_point);

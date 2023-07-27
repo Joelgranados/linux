@@ -47,17 +47,13 @@ static struct ctl_table llc2_timeout_table[] = {
 	{ },
 };
 
-static struct ctl_table llc_station_table[] = {
-	{ },
-};
-
 static struct ctl_table_header *llc2_timeout_header;
 static struct ctl_table_header *llc_station_header;
 
 int __init llc_sysctl_init(void)
 {
 	llc2_timeout_header = register_net_sysctl(&init_net, "net/llc/llc2/timeout", llc2_timeout_table);
-	llc_station_header = register_net_sysctl(&init_net, "net/llc/station", llc_station_table);
+	llc_station_header = register_sysctl_mount_point(&init_net.sysctls, "net/llc/station");
 
 	if (!llc2_timeout_header || !llc_station_header) {
 		llc_sysctl_exit();

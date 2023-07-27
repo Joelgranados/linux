@@ -201,7 +201,7 @@ static int test_sysctl_run_unregister_nested(void)
 static int test_sysctl_run_register_mount_point(void)
 {
 	sysctl_test_headers.test_h_mnt
-		= register_sysctl_mount_point("debug/test_sysctl/mnt");
+		= register_sysctl_mount_point(NULL, "debug/test_sysctl/mnt");
 	if (!sysctl_test_headers.test_h_mnt)
 		return -ENOMEM;
 
