@@ -2533,6 +2533,13 @@ static int __init init_dmars(void)
 			if (ret)
 				goto free_iommu;
 		}
+		if (!pasid_supported(iommu) && ecap_prs(iommu->ecap)) {
+			up_write(&dmar_global_lock);
+			ret = intel_svm_enable_prq_nopasid(iommu);
+			down_write(&dmar_global_lock);
+			if (ret)
+				goto free_iommu;
+		}
 #endif
 		ret = dmar_set_interrupt(iommu);
 		if (ret)
@@ -2969,6 +2976,12 @@ static int intel_iommu_add(struct dmar_drhd_unit *dmaru)
 		if (ret)
 			goto disable_iommu;
 	}
+	if (!pasid_supported(iommu) && ecap_prs(iommu->ecap)) {
+		ret = intel_svm_enable_prq_nopasid(iommu);
+		if (ret)
+			goto disable_iommu;
+	}
+
 #endif
 	ret = dmar_set_interrupt(iommu);
 	if (ret)
