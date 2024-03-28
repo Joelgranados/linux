@@ -1147,6 +1147,7 @@ void cache_tag_flush_range_np(struct dmar_domain *domain, unsigned long start,
 
 #ifdef CONFIG_INTEL_IOMMU_SVM
 void intel_svm_check(struct intel_iommu *iommu);
+int intel_svm_enable_prq_nopasid(struct intel_iommu *iommu);
 int intel_svm_enable_prq(struct intel_iommu *iommu);
 int intel_svm_finish_prq(struct intel_iommu *iommu);
 void intel_svm_page_response(struct device *dev, struct iopf_fault *evt,
