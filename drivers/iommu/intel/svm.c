@@ -125,7 +125,7 @@ free_prq:
 }
 int intel_svm_enable_prq_nopasid(struct intel_iommu *iommu)
 {
-	//struct iopf_queue *iopfq;
+	struct iopf_queue *iopfq;
 	struct page *pages;
 	int irq, ret;
 
@@ -148,7 +148,6 @@ int intel_svm_enable_prq_nopasid(struct intel_iommu *iommu)
 
 	snprintf(iommu->iopfq_name, sizeof(iommu->iopfq_name),
 		 "dmar%d-iopfq", iommu->seq_id);
-	/*
 	iopfq = iopf_queue_alloc(iommu->iopfq_name);
 	if (!iopfq) {
 		pr_err("IOMMU: %s: Failed to allocate iopf queue\n", iommu->name);
@@ -156,7 +155,6 @@ int intel_svm_enable_prq_nopasid(struct intel_iommu *iommu)
 		goto free_hwirq;
 	}
 	iommu->iopf_queue = iopfq;
-	*/
 
 	snprintf(iommu->prq_name, sizeof(iommu->prq_name), "dmar%d-prq", iommu->seq_id);
 
@@ -165,8 +163,7 @@ int intel_svm_enable_prq_nopasid(struct intel_iommu *iommu)
 	if (ret) {
 		pr_err("IOMMU: %s: Failed to request IRQ for page request queue\n",
 		       iommu->name);
-		//goto free_iopfq;
-		goto free_hwirq;
+		goto free_iopfq;
 	}
 	dmar_writeq(iommu->reg + DMAR_PQH_REG, 0ULL);
 	dmar_writeq(iommu->reg + DMAR_PQT_REG, 0ULL);
@@ -176,11 +173,9 @@ int intel_svm_enable_prq_nopasid(struct intel_iommu *iommu)
 
 	return 0;
 
-/*
 free_iopfq:
 	iopf_queue_free(iommu->iopf_queue);
 	iommu->iopf_queue = NULL;
-*/
 
 free_hwirq:
 	dmar_free_hwirq(irq);
