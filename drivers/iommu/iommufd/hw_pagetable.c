@@ -254,6 +254,59 @@ out_abort:
 	return ERR_PTR(rc);
 }
 
+static void iommufd_kfree_iopf_cookie(struct iopf_attach_cookie *cookie)
+{
+	struct iommufd_hw_pagetable *hwpt = cookie->domain->fault_data;
+	struct iommufd_device *idev = cookie->private;
+
+	refcount_dec(&idev->obj.users);
+	refcount_dec(&hwpt->obj.users);
+	kfree(cookie);
+}
+
+static int
+iommufd_iopf_create_nopasid_cookie(struct iommufd_device *idev,
+		struct iommufd_hw_pagetable *hwpt)
+{
+	int rc = 0;
+	struct iopf_attach_cookie *curr, *cookie;
+	struct iommu_fault_param *iopf_param = idev->dev->iommu->fault_param;
+	struct device *dev = idev->dev;
+
+	if (!iopf_param)
+		return -ENODEV;
+
+	xa_lock(&iopf_param->pasid_cookie);
+	curr = xa_load(&iopf_param->pasid_cookie, IOMMU_NO_PASID);
+	if (curr)
+		goto out;
+
+	cookie = kzalloc(sizeof(*cookie), GFP_KERNEL);
+	if (!cookie) {
+		rc = -ENOMEM;
+		goto out;
+	}
+
+	refcount_inc(&hwpt->obj.users);
+	refcount_inc(&idev->obj.users);
+	cookie->release = iommufd_kfree_iopf_cookie;
+	cookie->dev = dev;
+	cookie->pasid = IOMMU_NO_PASID;
+	cookie->domain = hwpt->domain;
+	cookie->private = idev;
+	refcount_set(&cookie->users, 1);
+
+	curr = xa_store(&iopf_param->pasid_cookie, IOMMU_NO_PASID, cookie, GFP_KERNEL);
+	if (xa_err(curr)){
+		kfree(cookie);
+		rc = xa_err(curr);
+	}
+
+out:
+	xa_unlock(&iopf_param->pasid_cookie);
+	return rc;
+}
+
 int iommufd_hwpt_alloc(struct iommufd_ucmd *ucmd)
 {
 	struct iommu_hwpt_alloc *cmd = ucmd->cmd;
@@ -329,6 +382,11 @@ int iommufd_hwpt_alloc(struct iommufd_ucmd *ucmd)
 
 
 		if (iommu_dev_enable_feature(idev->dev, IOMMU_DEV_FEAT_IOPF)) {
+			rc = -EINVAL;
+			goto out_hwpt;
+		}
+
+		if (iommufd_iopf_create_nopasid_cookie(idev, hwpt)) {
 			rc = -EINVAL;
 			goto out_hwpt;
 		}
