@@ -148,8 +148,7 @@ struct ctl_table {
 		SYSCTL_TABLE_TYPE_DEFAULT,
 		SYSCTL_TABLE_TYPE_PERMANENTLY_EMPTY
 	} type;
-	void *proc_handler;	/* Callback for text formatting */
-	//proc_handler *proc_handler;	/* Callback for text formatting */
+	proc_handler *proc_handler;	/* Callback for text formatting */
 	struct ctl_table_poll *poll;
 	void *extra1;
 	void *extra2;
