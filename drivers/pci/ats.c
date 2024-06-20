@@ -196,7 +196,7 @@ void pci_pri_init(struct pci_dev *pdev)
  */
 int pci_enable_pri(struct pci_dev *pdev, u32 reqs)
 {
-	u16 control, status;
+	u16 control;/*, status;*/
 	u32 max_requests;
 	int pri = pdev->pri_cap;
 
@@ -217,9 +217,11 @@ int pci_enable_pri(struct pci_dev *pdev, u32 reqs)
 	if (!pri)
 		return -EINVAL;
 
+	/*
 	pci_read_config_word(pdev, pri + PCI_PRI_STATUS, &status);
 	if (!(status & PCI_PRI_STATUS_STOPPED))
 		return -EBUSY;
+		*/
 
 	pci_read_config_dword(pdev, pri + PCI_PRI_MAX_REQ, &max_requests);
 	reqs = min(max_requests, reqs);
