@@ -327,7 +327,8 @@ int iommufd_hwpt_alloc(struct iommufd_ucmd *ucmd)
 		hwpt->fault = fault;
 		hwpt->domain->iopf_handler = iommufd_fault_iopf_handler;
 		hwpt->domain->fault_data = hwpt;
-		if (iommu_dev_enable_feature(idev->dev, IOMMU_DEV_FEAT_IOPF)) {
+
+		if (iommufd_fault_domain_attach_dev(hwpt, idev)) {
 			rc = -EINVAL;
 			goto out_hwpt;
 		}

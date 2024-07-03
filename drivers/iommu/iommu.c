@@ -3505,9 +3505,13 @@ int iommu_attach_group_handle(struct iommu_domain *domain,
 	if (ret)
 		goto err_unlock;
 
-	ret = __iommu_attach_group(domain, group);
-	if (ret)
-		goto err_erase;
+	if (group->domain && (group->domain == group->default_domain ||
+	    group->domain == group->blocking_domain)) {
+		ret = __iommu_attach_group(domain, group);
+		if (ret)
+			goto err_erase;
+	}
+
 	mutex_unlock(&group->mutex);
 
 	return 0;
