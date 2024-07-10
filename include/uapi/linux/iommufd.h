@@ -51,6 +51,7 @@ enum {
 	IOMMUFD_CMD_HWPT_GET_DIRTY_BITMAP,
 	IOMMUFD_CMD_HWPT_INVALIDATE,
 	IOMMUFD_CMD_FAULT_QUEUE_ALLOC,
+	IOMMUFD_CMD_FAULT_IOPF_ENABLE,
 };
 
 /**
@@ -801,4 +802,20 @@ struct iommu_fault_alloc {
 	__u32 out_fault_fd;
 };
 #define IOMMU_FAULT_QUEUE_ALLOC _IO(IOMMUFD_TYPE, IOMMUFD_CMD_FAULT_QUEUE_ALLOC)
+
+/**
+ * struct iommu_fault_enable - ioctl(IOMMU_FAULT_IOPF_ENABLE)
+ * @size: sizeof(struct iommu_fault_enable)
+ * @flags: Must be 0
+ * @dev_id: The device to allocate this HWPT for
+ *
+ * Enable iopf for the dev_id device.
+ */
+struct iommu_fault_enable {
+	__u32 size;
+	__u32 flags;
+	__u32 dev_id;
+};
+
+#define IOMMU_FAULT_IOPF_ENABLE _IO(IOMMUFD_TYPE, IOMMUFD_CMD_FAULT_IOPF_ENABLE)
 #endif

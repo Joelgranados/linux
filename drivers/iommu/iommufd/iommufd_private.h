@@ -466,6 +466,7 @@ iommufd_get_fault(struct iommufd_ucmd *ucmd, u32 id)
 			    struct iommufd_fault, obj);
 }
 
+int iommufd_fault_enable(struct iommufd_ucmd *ucmd);
 int iommufd_fault_alloc(struct iommufd_ucmd *ucmd);
 void iommufd_fault_destroy(struct iommufd_object *obj);
 int iommufd_fault_iopf_handler(struct iopf_group *group);
