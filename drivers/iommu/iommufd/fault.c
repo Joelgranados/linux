@@ -354,6 +354,18 @@ static const struct file_operations iommufd_fault_fops = {
 	.llseek		= no_llseek,
 };
 
+int iommufd_fault_enable(struct iommufd_ucmd *ucmd)
+{
+	int ret = 0;
+	struct iommu_fault_enable *cmd = ucmd->cmd;
+	struct iommufd_device *idev = iommufd_get_device(ucmd, cmd->dev_id);
+
+	ret = iommufd_fault_iopf_enable(idev);
+
+	iommufd_put_object(ucmd->ictx, &idev->obj);
+	return ret;
+}
+
 int iommufd_fault_alloc(struct iommufd_ucmd *ucmd)
 {
 	struct iommu_fault_alloc *cmd = ucmd->cmd;
