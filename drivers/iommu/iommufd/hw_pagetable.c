@@ -82,6 +82,25 @@ iommufd_hwpt_paging_enforce_cc(struct iommufd_hwpt_paging *hwpt_paging)
 	return 0;
 }
 
+static int iommufd_init_pasid_array(struct iommu_domain *domain,
+				  struct iommufd_device *idev)
+{
+	int ret;
+	struct iommufd_attach_handle *handle;
+	struct iommu_group *group = idev->igroup->group;
+
+	handle = kzalloc(sizeof(*handle), GFP_KERNEL);
+	if (!handle)
+		return -ENOMEM;
+	handle->idev = idev;
+
+	ret = iommu_init_pasid_array(domain, group, &handle->handle);
+	if (ret)
+		kfree(handle);
+
+	return ret;
+}
+
 /**
  * iommufd_hwpt_paging_alloc() - Get a PAGING iommu_domain for a device
  * @ictx: iommufd context
@@ -146,6 +165,13 @@ iommufd_hwpt_paging_alloc(struct iommufd_ctx *ictx, struct iommufd_ioas *ioas,
 		hwpt->domain = iommu_domain_alloc(idev->dev->bus);
 		if (!hwpt->domain) {
 			rc = -ENOMEM;
+			goto out_abort;
+		}
+	}
+
+	if (idev->iopf_enabled) {
+		if (iommufd_init_pasid_array(hwpt->domain, idev)) {
+			rc = -EINVAL;
 			goto out_abort;
 		}
 	}
