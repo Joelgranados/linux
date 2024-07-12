@@ -3479,6 +3479,32 @@ iommu_attach_handle_get(struct iommu_group *group, ioasid_t pasid, unsigned int 
 }
 EXPORT_SYMBOL_NS_GPL(iommu_attach_handle_get, IOMMUFD_INTERNAL);
 
+/** iommu_init_pasid_array - Initialize pasid array in the domain group
+ *
+ * Returns 0 on success. Error code on failure
+ *
+ * An IOMMU_NO_PASID element is *NOT* replaced if there is one already there.
+ */
+int iommu_init_pasid_array(struct iommu_domain *domain,
+			   struct iommu_group *group,
+			   struct iommu_attach_handle *handle)
+{
+	int ret;
+
+	if (handle)
+		handle->domain = domain;
+
+	mutex_lock(&group->mutex);
+	ret = xa_insert(&group->pasid_array, IOMMU_NO_PASID, handle, GFP_KERNEL);
+	mutex_unlock(&group->mutex);
+
+	if (ret == -EBUSY)
+		ret = 0;
+
+	return ret;
+}
+EXPORT_SYMBOL_NS_GPL(iommu_init_pasid_array, IOMMUFD_INTERNAL);
+
 /**
  * iommu_attach_group_handle - Attach an IOMMU domain to an IOMMU group
  * @domain: IOMMU domain to attach
@@ -3518,6 +3544,7 @@ err_unlock:
 	return ret;
 }
 EXPORT_SYMBOL_NS_GPL(iommu_attach_group_handle, IOMMUFD_INTERNAL);
+
 
 /**
  * iommu_detach_group_handle - Detach an IOMMU domain from an IOMMU group
