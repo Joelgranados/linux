@@ -362,6 +362,7 @@ int iommufd_fault_enable(struct iommufd_ucmd *ucmd)
 
 	ret = iommufd_fault_iopf_enable(idev);
 
+	iommufd_put_object(ucmd->ictx, &idev->obj);
 	return ret;
 }
 
