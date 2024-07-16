@@ -4221,7 +4221,7 @@ static int intel_iommu_enable_iopf(struct device *dev)
 		return -ENODEV;
 
 	if (info->pri_enabled)
-		return -EBUSY;
+		return 0;
 
 	iommu = info->iommu;
 	if (!iommu)
