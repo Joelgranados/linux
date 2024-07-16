@@ -3246,6 +3246,9 @@ EXPORT_SYMBOL_GPL(iommu_device_claim_dma_owner);
 
 static void __iommu_release_dma_ownership(struct iommu_group *group)
 {
+	if (!xa_empty(&group->pasid_array))
+		xa_erase(&group->pasid_array, IOMMU_NO_PASID);
+
 	if (WARN_ON(!group->owner_cnt || !group->owner ||
 		    !xa_empty(&group->pasid_array)))
 		return;
